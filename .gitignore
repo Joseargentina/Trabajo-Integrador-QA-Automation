@@ -1,0 +1,10 @@
+.env
+__pycache__
+
+# Cache de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+.vscode/
+Ejercicio integrador QA Automation.md

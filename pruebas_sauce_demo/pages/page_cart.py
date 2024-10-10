@@ -9,10 +9,12 @@ class Page_Cart():
         self.cart = (By.ID, 'shopping_cart_container')
         self.cart_items_container = (By.CLASS_NAME, 'cart_item')
         self.remove_button = (By.ID, 'remove-sauce-labs')
-        self.remove_button_base = 'remove-'
         self.remove_shirt_id = 'remove-test.allthethings()-t-shirt-(red)'
         self.menu_burger_btn = (By.ID, 'react-burger-menu-btn')
         self.all_items_button = (By.ID, 'inventory_sidebar_link')
+        self.xpath_remove = (By.XPATH, ".//button[contains(@id,'remove-')]")
+        self.name_element = (By.CLASS_NAME, 'inventory_item_name')
+        self.continue_shophing_btn = (By.ID, 'continue-shopping')
     
     def go_to_cart(self):
         self.driver.find_element(*self.cart).click()
@@ -23,36 +25,40 @@ class Page_Cart():
     
     def remove_element(self,element):
         try:
-          pass
-        except:
-          print('An exception occurred')
+          items = self.driver.find_elements(*self.cart_items_container)
+          for item in items:
+              product_name_element = WebDriverWait(item, 10).until(
+                    EC.visibility_of_element_located(self.name_element)
+                ).text.strip().lower()
+              if product_name_element == element.lower():
+                  item.find_element(*self.xpath_remove).click()
+                  print(f"Producto '{product_name_element}' eliminado.")
+                  return
+          print(f"Producto '{element}' no encontrado en el carrito.")
+        except NoSuchElementException as e:
+            print(f"No se encontró el botón de eliminar para el producto. Error: {e}")
     
     def remove_all_elements(self):
         try:
-            # Encuentra todos los productos en el carrito
             cart_items = self.driver.find_elements(*self.cart_items_container)
         
-            # Itera sobre cada producto y elimina
             for item in cart_items:
-                product_name_element = item.find_element(By.CLASS_NAME, 'inventory_item_name')
-                product_name = product_name_element.text.strip().lower()  # Extraer el nombre del producto
-            
-                # Identificar el botón de eliminar para cada producto dentro del `item` específico
-                remove_button = item.find_element(By.XPATH, ".//button[contains(@id,'remove-')]")
+                product_name_element = item.find_element(*self.name_element).text.strip().lower()
+                remove_button = item.find_element(*self.xpath_remove)
             
                 # Hacer clic en el botón para eliminar el producto
                 remove_button.click()
-                print(f"Producto '{product_name}' eliminado.")
+                # print(f"Producto '{product_name_element}' eliminado.")
             
         except NoSuchElementException as e:
             print(f"No se encontró el botón de eliminar para el producto . Error: {e}")
     
     def go_to_all_items(self):
         self.driver.find_element(*self.menu_burger_btn).click()
-        # Espera explícita hasta que el botón esté presente
         WebDriverWait(self.driver, 10).until(
             EC.presence_of_element_located(self.all_items_button)
         )
-        # Después de la espera, haz clic en el botón
-        burger_btn = self.driver.find_element(*self.all_items_button)
-        burger_btn.click()
+        self.driver.find_element(*self.all_items_button).click()
+    
+    def go_to_continue_shopping(self):
+        self.driver.find_element(*self.continue_shophing_btn).click()

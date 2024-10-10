@@ -29,7 +29,7 @@ class Sauce_demo_test(unittest.TestCase):
 
     def setUp(self) -> None:
         # self.driver.maximize_window()
-        # self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(10)
         self.driver.get(self.base_url) 
         self.page_login = Page_Login(self.driver)
         self.page_login.login(self.user, self.password)
@@ -55,7 +55,7 @@ class Sauce_demo_test(unittest.TestCase):
             'test.allthethings() T-shirt (red)'
         ]
         for product in products_to_add:
-            self.page_products.add_to_cart(product)
+            self.page_products.add_to_cart2(product)
             
         self.page_cart.go_to_cart()
         cart_items = self.page_cart.get_cart_items()
@@ -77,36 +77,28 @@ class Sauce_demo_test(unittest.TestCase):
 
     def test_finish_compra(self):
         self.page_cart.go_to_cart()
-        self.page_cart.remove_all_elements()
         if self.page_cart.get_cart_items():
             self.page_cart.remove_all_elements()
         
-        
         self.page_cart.go_to_all_items()
-        product = 'sauce labs onesie'
-        self.page_products.add_to_cart2(product)
+        self.page_products.add_to_cart2('sauce labs onesie')
+        self.page_cart.go_to_cart()
+        self.page_cart.remove_element('sauce labs onesie')
+        self.assertEqual(len(self.page_cart.get_cart_items()),0 ,'El carrito debería estar vacío')
+        self.page_cart.go_to_continue_shopping()
+        products_to_add = ['sauce labs bolt t-shirt','sauce labs fleece jacket']
+        for product in products_to_add:
+            self.page_products.add_to_cart2(product)
         
-        
-        # print('agregaste al carrito nuevamente')
-        # self.page_cart.go_to_cart()
-        # cart_items = self.page_cart.get_cart_items()
-        # self.assertEqual(len(cart_items), 1, "El carrito tiene mas de un elemento")
-        
-        
-        # Asegurarse de que el carrito esté vacío antes de agregar un producto
-        # self.page_cart.go_to_cart()
-    
-        # cart_items = self.page_cart.get_cart_items()
-        # self.assertEqual(len(cart_items), 0, "El carrito no está vacío al inicio de la prueba")
-        
-        # if len(cart_items) > 0:
-        #     self.page_cart.remove_all_elements()
-
-        # self.page_cart.go_to_cart()
-        # cart_items = self.page_cart.get_cart_items()
-        # # self.assertIn('sauce labs bike light', cart_items)
-        # self.assertEqual(len(cart_items), 0, "El carrito no está vacío al inicio de la prueba")
-
+        self.page_cart.go_to_cart()
+        cart_items = self.page_cart.get_cart_items()
+        self.assertEqual(cart_items,products_to_add,'El carrito debería estar vacío después de eliminar el artículo.')
+        self.page_checkout.go_to_checkout()
+        self.page_checkout.fill_checkout('Jose','Perez',6534)
+        self.page_checkout.go_to_continue()
+        self.page_checkout.finish_buy()
+        message =self.page_checkout.get_message_final()
+        self.assertEqual('Thank you for your order!', message, 'El mensaje final no es el esperado.')
     
 if __name__ == '__main__':
     unittest.main()

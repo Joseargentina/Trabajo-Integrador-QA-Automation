@@ -70,3 +70,4 @@ Caso 3
 * Hacer un get a pikachu ([https://pokeapi.co/api/v2/pokemon/pikachu/](https://pokeapi.co/api/v2/pokemon/pikachu/))  
 * Verificar que su experiencia base es mayor a 10 y menor a 1000  
 * Verificar que su tipo es “electric”
+al terminar enviar repositorio a stackpointerex@gmail.com

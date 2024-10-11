@@ -18,12 +18,10 @@ def raiz_cuadrada(a, b, c):
         raiz2 = (-b - discriminante**0.5) / (2 * a)
         return f"Dos raíces reales: {raiz1} y {raiz2}"
 
-    # Caso cuando hay una solución real
     elif discriminante == 0:
         raiz = -b / (2 * a)
         return f"Una raíz real: {raiz}"
 
-    # Caso cuando hay soluciones complejas (discriminante negativo)
     else:
         parte_real = -b / (2 * a)
         parte_imaginaria = (-discriminante)**0.5 / (2 * a)

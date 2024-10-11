@@ -8,6 +8,7 @@ from pages.page_login import Page_Login
 from pages.page_products import Page_Products
 from pages.page_checkout import Page_Checkout
 from pages.page_cart import Page_Cart
+
 class Sauce_demo_test(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
@@ -45,7 +46,7 @@ class Sauce_demo_test(unittest.TestCase):
         prices = self.page_products.get_prices()
         self.assertEqual(prices, sorted(prices))
     
-    def test_checkout_error_messages_when_missing_fields(self):
+    def test_checkout_errors_after_adding_all_items(self):
         products_to_add= [
             'sauce labs backpack',
             'sauce labs bike light',
@@ -75,7 +76,7 @@ class Sauce_demo_test(unittest.TestCase):
         self.assertEqual('Error: Postal Code is required', self.page_checkout.get_message_error())
         
 
-    def test_finish_compra(self):
+    def test_standard_user_complete_checkout_process(self):
         self.page_cart.go_to_cart()
         if self.page_cart.get_cart_items():
             self.page_cart.remove_all_elements()

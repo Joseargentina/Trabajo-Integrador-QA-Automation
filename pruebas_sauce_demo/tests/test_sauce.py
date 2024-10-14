@@ -29,7 +29,6 @@ class Sauce_demo_test(unittest.TestCase):
         cls.driver.quit()     
 
     def setUp(self) -> None:
-        # self.driver.maximize_window()
         self.driver.implicitly_wait(10)
         self.driver.get(self.base_url) 
         self.page_login = Page_Login(self.driver)

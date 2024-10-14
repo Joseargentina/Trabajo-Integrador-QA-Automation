@@ -22,7 +22,6 @@ class Sauce_demo_test(unittest.TestCase):
         cls.user = os.getenv('NAME_USER')
         cls.password = os.getenv('PASSWORD')
         print(f"Base URL: {cls.base_url}")
-        # print(f"Base URL: {cls.base_url}, User: {cls.user}, Password: {cls.password}")
 
     @classmethod
     def tearDownClass(cls) -> None:        
@@ -56,7 +55,7 @@ class Sauce_demo_test(unittest.TestCase):
             'test.allthethings() T-shirt (red)'
         ]
         for product in products_to_add:
-            self.page_products.add_to_cart2(product)
+            self.page_products.add_to_cart(product)
             
         self.page_cart.go_to_cart()
         cart_items = self.page_cart.get_cart_items()
@@ -82,14 +81,14 @@ class Sauce_demo_test(unittest.TestCase):
             self.page_cart.remove_all_elements()
         
         self.page_cart.go_to_all_items()
-        self.page_products.add_to_cart2('sauce labs onesie')
+        self.page_products.add_to_cart('sauce labs onesie')
         self.page_cart.go_to_cart()
         self.page_cart.remove_element('sauce labs onesie')
         self.assertEqual(len(self.page_cart.get_cart_items()),0 ,'El carrito debería estar vacío')
         self.page_cart.go_to_continue_shopping()
         products_to_add = ['sauce labs bolt t-shirt','sauce labs fleece jacket']
         for product in products_to_add:
-            self.page_products.add_to_cart2(product)
+            self.page_products.add_to_cart(product)
         
         self.page_cart.go_to_cart()
         cart_items = self.page_cart.get_cart_items()

@@ -33,7 +33,7 @@ jobs:
             
             - name: Run tests and generate HTML report
               run: |
-                py html_runner.py
+                python html_runner.py
 
             - name: Upload test report
               uses: actions/upload-artifact@v4

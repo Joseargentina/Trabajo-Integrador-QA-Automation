@@ -26,26 +26,11 @@ class Page_Products():
                 print(f"Error al convertir el precio: {price_text}")
         return prices
     
-    def add_to_cart(self, element):
-        try:
-            # Construir el ID del botón basado en el nombre del producto
-            element_id = 'add-to-cart-' + element.replace(' ', '-').lower()
-            print(f"Buscando elemento con ID: {element_id}") 
-            
-        
-            # Espera explícita hasta que el botón esté presente
-            WebDriverWait(self.driver, 10).until(
-                EC.presence_of_element_located((By.ID, element_id))
-            )
-            self.driver.find_element(By.ID, element_id).click()
-        except NoSuchElementException as e:
-            print(f"El producto '{element}' no se encontró.")
-    
-    def add_to_cart2(self,element):
+    def add_to_cart(self,element):
         try:
           xpath= f'//button[contains(@id,"add-to-cart-{element.replace(' ','-').lower()}")]'
           print(f"Buscando elemento con XPath: {xpath}") 
-          # Espera explícita hasta que el botón esté presente
+          
           WebDriverWait(self.driver, 10).until(
                 EC.presence_of_element_located((By.XPATH, xpath))
           )
@@ -53,13 +38,3 @@ class Page_Products():
           self.driver.find_element(By.XPATH, xpath).click()
         except NoSuchElementException as e:
             print(f'No se encontro el elemento {element} a causa de: {e}')
-          
-    
-    # def verify_cart_contents(self, product_to_add):
-    #     cart_items = self.get_cart_items()
-        
-    #     for item in product_to_add:
-    #         if item not in cart_items:
-    #             print(f'El producto {item} no esta en el carrito')
-    #             return False
-    #     return True

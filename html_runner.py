@@ -1,6 +1,5 @@
 import unittest
 from HtmlTestRunner import HTMLTestRunner
-import os
 
 # Cargar y ejecutar pruebas de Sauce
 pruebas_sauce_suite = unittest.TestLoader().discover('pruebas_sauce_demo')

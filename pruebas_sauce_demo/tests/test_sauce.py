@@ -13,10 +13,10 @@ class Sauce_demo_test(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         options = Options()
-        options.add_argument('--incognito')
-        options.add_argument('--headless')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
+        # options.add_argument('--incognito')
+        # options.add_argument('--headless')
+        # options.add_argument('--no-sandbox')
+        # options.add_argument('--disable-dev-shm-usage')
         cls.driver = webdriver.Firefox(options=options)
         load_dotenv()
         cls.base_url = os.getenv('BASE_URL')

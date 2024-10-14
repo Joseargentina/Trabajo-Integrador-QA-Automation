@@ -14,7 +14,7 @@ class Sauce_demo_test(unittest.TestCase):
     def setUpClass(cls) -> None:
         options = Options()
         options.add_argument('--incognito')
-        options.add_argument('--headless')
+        # options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         cls.driver = webdriver.Firefox(options=options)
         load_dotenv()
@@ -22,6 +22,7 @@ class Sauce_demo_test(unittest.TestCase):
         cls.user = os.getenv('NAME_USER')
         cls.password = os.getenv('PASSWORD')
         print(f"Base URL: {cls.base_url}")
+        # print(f"Base URL: {cls.base_url}, User: {cls.user}, Password: {cls.password}")
 
     @classmethod
     def tearDownClass(cls) -> None:        

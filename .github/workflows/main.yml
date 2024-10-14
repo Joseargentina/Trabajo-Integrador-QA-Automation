@@ -26,7 +26,7 @@ jobs:
                 pip install selenium python-dotenv requests html-testRunner
 
             - name: Set up environment variables
-              run: echo "ENV_DATA=${{ secrets.ENV_DATA }}" >> $GITHUB_ENV
+              run: echo "DATA_ENV=${{ secrets.DATA_ENV }}" >> $GITHUB_ENV
 
             - name: Create report directory
               run: mkdir -p report_directory 

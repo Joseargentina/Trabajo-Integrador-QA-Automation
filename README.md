@@ -1,4 +1,5 @@
 # Trabajo Integrador QA Automation Selenium & PokeAPI
+# Alumno: José Barone
 
 El proyecto consiste en la automatización de pruebas para a la plataforma [SauceDemo](https://www.saucedemo.com/) utilizando Selenium y pruebas unitarias para la API [PokeApi](https://pokeapi.co/) utilizando la librería `unittest` de Python. El proyecto también está integrado con Github Actions para ejecutar las pruebas en un entorno de integración continua (CI).
 
